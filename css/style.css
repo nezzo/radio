@@ -1,0 +1,41 @@
+.sharing{
+    float: right;
+    position: absolute;
+    right: 0px;
+}
+
+.text_sharing{
+  float: left;
+  position: absolute;
+}
+.shar{
+    width: 90%;
+    margin-top: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 35px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.widget_group {
+    float: right;
+ }
+ .image_player img {
+    width: 100%;
+}
+.image_player {
+    width: 400px;
+    height: 400px;
+}
+.left_block_player-8{
+  width: 60%;
+  float: left;
+}
+.right_block_player-2{
+  width: 40%;
+  float:right;
+}
+
+div#vk_poll {
+    margin-top: 55px;
+}

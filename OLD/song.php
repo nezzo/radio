@@ -51,7 +51,7 @@ class Song extends sqlConnect{
     $id = $_POST['idDel'];
       
       if(!empty($id)){
-	$stmt = $this->connect()->query("DELETE FROM songs WHERE song_id =".(int)$id."");
+	$stmt = $this->connect()->query("DELETE FROM songs WHERE song_id =".$id."");
 	  
 	  if($stmt == true){
 	     echo 1;

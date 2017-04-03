@@ -9,7 +9,7 @@ require ("song.php");
 class Audio extends Song{
 
 	public $param = [
-						'owner_id' =>"-28446706",
+						'owner_id' =>"-22866546",
 						'offset' => 0, //c какой позиции начинать
 						'count' => 10,
 					 ];
@@ -26,14 +26,16 @@ class Audio extends Song{
 		$n = 2;
 		$i = 1;
 		$s = 0;
-		$numberPost = 9; //номер поста
+		$numberPost = 1;
  
 //["response"][1]  - номер поста (по порядку) получать с переменной значение скок постов охватить
 /*["attachments"][9] - номер песни в посте (макс до 9 (9 песен в посте максимум, ставить счетчик до 9))
 ["attachments"][0]["photo"]["src"] -url photo
 */
 
-      //создаем цыкл по количеству песен в посте (обычно с 0 до 9)
+
+ 
+ 	//создаем цыкл по количеству песен в посте (обычно с 0 до 9)
 	for($a = 0; $a<count($mas["response"][$numberPost]["attachments"]); $a++){
 
 		$urlPhoto = $mas["response"][$numberPost]["attachments"][0]["photo"]["src_big"];
@@ -44,7 +46,7 @@ class Audio extends Song{
 		$search = "http://zaycev.net/search.html?query_search=".$name;//делаем запрос в поиске
 		$data = file_get_html($search);//получаем html код для парсинга (с помощью поиска получаем весь список песен)
 		$nameTag = "data-url"; //нужный нам тег (в нем хранится ссылка)
-		 
+		
 		 //удаляем лишние теги 
 		foreach($data->find('div[]') as $tmp)$tmp->outertext = '';
 
@@ -62,16 +64,17 @@ class Audio extends Song{
 
 			     //передаем 2 параметра (заносим в базу имя песни и ссылку)($jsonUrl, $nameSong)
 				  $this->insertMusic($jsonUrl["url"], $nameSong, $urlPhoto);
-				
-   			     
+  			     
  			     //выводим по 1 записи(без дулей)
  			     if($i<$n)break;
- 			      }
- 			 }
+			    
+				}
+				
+
+			}
 		 	$data->clear();// подчищаем за собой
 			unset($data);
-			
-		  sleep(10);
+
 		}
 
 	}				  
