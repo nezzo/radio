@@ -1,9 +1,11 @@
 <?php
+ini_set('display_errors',1);
+error_reporting(E_ALL ^E_NOTICE);
 
-$s = fopen("1.txt", "rt");
+$a = array();
 
-$a = file("1.txt");
-
-$v = explode("https://", $a);
+for($i = 0; $i<5; $i++){
+	$a[] = $i;
+}
 
 print_r($a);

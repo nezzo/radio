@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors',1);
-error_reporting(E_ALL ^E_NOTICE);
-
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ 
 require_once 'sqlConnect.php';
 
 class Song extends sqlConnect{
@@ -38,4 +38,3 @@ class Song extends sqlConnect{
 
 $song = new Song();
 $song->selectMusic();
-//$song->insertMusic(); каждый раз при вызове класса дублируются ссылки в базе на песни

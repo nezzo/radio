@@ -5,10 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
     <link href="dist/skin/blue.monday/css/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="dist/add-on/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="dist/jplayer/jquery-2.1.1.min.js"></script>
+     <script type="text/javascript" src="dist/jplayer/jquery.jplayer.min.js"></script>
     
  
 </head>
@@ -55,30 +53,39 @@
     $(document).ready(function(){
  
  $("#jquery_jplayer_1").jPlayer({
-         
+          
          ready: function () {
           var data = $.ajax({
               url: "song.php",
               async: false
              }).responseText;
-    
 
-          var string = data.split('|');
+ 
+        
+        var string = data.split('|');
              $(this).jPlayer("setMedia", {
-                mp3: string[0]
+                mp3: "http://cdndl.zaycev.net/play/4021320/pj05PdqRXuYMMsayZEATELTvI4kd1wYlbRG9fmHifXMfRgqgMuSQcrtRVsbexUHSRmcZ9T49l4WkrT-QsQOb0YOrOY_NW-yPeq0XNvbZEX5VK6qCNgwIdNmHVGBxutvqk9BuYYFVTGwiuWqvFLDKNbQaK3tBQ4prE2NuwtGBgiL1BDBg?dlKind=play&format=json"
             }).jPlayer("play");
+
+             
         },
+        error: function (event) {
+          //если трек не существует, то мы принимаем условие ошибки и запускаем следующий пока не найдем работающий трек
+         if(!!event.jPlayer.error.type){
+          alert("error");
+            var data = $.ajax({
+              url: "song.php",
+              async: false
+             }).responseText;
+             
+         }
+      },
         ended: function (event) {  
             var data = $.ajax({
               url: "song.php",
               async: false
              }).responseText;
             
-            var string = data.split('|');
-            $(this).jPlayer("setMedia", {
-                mp3: string[0]
-            }).jPlayer("play");
-                
              
         },
         
