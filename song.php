@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 ini_set('display_errors',1);
 error_reporting(E_ALL ^E_NOTICE);
 
@@ -11,18 +13,22 @@ class Song extends sqlConnect{
     public function selectMusic(){
         $stmt = $this->connect()->query("SELECT * FROM songs ORDER BY RAND() LIMIT 1" )->fetchAll(PDO::FETCH_ASSOC);
 
-        $music = array();
-        $title = array();
-        $poster = array();
-        $mas = array();
-
-         foreach($stmt as $row){
+        
+	 foreach($stmt as $row){
+         
+         //проверяем что бы песни по name не повторялись
+	  if($_SESSION["name"] != $row['name']){
+	  
+	     //создаем сессию по name  музыки
+	     $_SESSION["name"] = $row['name'];
 	     $id = $row['song_id'];
 	     $music = $row['url'];
              $title = $row["name"];
              $poster = $row["img"];
              $mas = $music."|".$title."|".$poster."|".$id;
              echo $mas;
+	  }
+	     
         }
     }
 
@@ -31,8 +37,8 @@ class Song extends sqlConnect{
     	//$playlist = file("1.txt");
 
     	if(!empty($jsonUrl) && !empty($nameSong)){
-    		for($s=0; $s<count($jsonUrl); $s++){
-    			$stmt = $this->connect()->prepare("INSERT INTO songs (url,name,img) VALUES (:url, :name, :img)");
+    	
+     			$stmt = $this->connect()->prepare("INSERT INTO songs (url,name,img) VALUES (:url, :name, :img)");
 
     			$stmt->bindParam(':url', $jsonUrl);
     			$stmt->bindParam(':name', $nameSong);
@@ -40,7 +46,7 @@ class Song extends sqlConnect{
 
 
     			echo $stmt->execute();
-    		}
+    		
     	}
     }
     

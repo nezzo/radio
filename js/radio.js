@@ -45,13 +45,15 @@ $(document).ready(function(){
               
            });
       
-            $(this).jPlayer("setMedia", {
+	setTimeout(function(){
+	  $(this).jPlayer("setMedia", {
               mp3: string[0],
               title:string[1],
               poster:string[2]
           }).jPlayer("play");
-               
-   }
+	  
+	},2000);
+    }
       },
         ended: function (event) {  
             var data = $.ajax({
