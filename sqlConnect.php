@@ -1,11 +1,15 @@
 <?php
-ini_set('display_errors',1);
-error_reporting(E_ALL ^E_NOTICE);   
+  
 /**
  * Description of Model
  *
  * @author nestor
  */
+ 
+
+ini_set('display_errors',1);
+error_reporting(E_ALL ^E_NOTICE); 
+
 class sqlConnect {
     private $login = "root";
     private $pass = 1111111;

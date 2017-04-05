@@ -1,16 +1,20 @@
+#!/usr/bin/php
 <?php
 ini_set('display_errors',1);
 error_reporting(E_ALL ^E_NOTICE);
 
-require ("simple_html_dom.php");
-require ("song.php");
+
+require_once "song.php";
+//подключаем парсер
+//require_once "parser/zaycev.net.php";
+require_once "parser/muzofond.com.php";
 
 
 class Audio extends Song{
 
 	//id  групп с музыкой
-	public $group = array("-26515827","-22866546","-28446706");
-
+	//public $group = array("-26515827","-22866546","-28446706", "-68629392", "-27895931", "-25757367", "-33918856","-40897649");
+	public $group = array("-26515827");
 	public $param = array();
 
 
@@ -65,34 +69,28 @@ class Audio extends Song{
 					$nameMusic = $mas["response"][$indexPost]["attachments"][$a]["audio"]["title"]; //получаем имя песни
 					$nameSong = $artist." - ".$nameMusic; //склеиваем имена исполнителя и песни
 					$name = urlencode($artist." - ".$nameMusic); //склеиваем и делаем имя и название песни похожим на ссылку
-					$search = "http://zaycev.net/search.html?query_search=".$name;//делаем запрос в поиске
-					$data = file_get_html($search);//получаем html код для парсинга (с помощью поиска получаем весь список песен)
-					$nameTag = "data-url"; //нужный нам тег (в нем хранится ссылка)
-					 
-					 //удаляем лишние теги 
-					foreach($data->find('div[]') as $tmp)$tmp->outertext = '';
 
+ 
+							//определяем объект
+							//$zaycev = new Zaycev();
+							$muzofond = new Muzofond();
 
-						// находим все нужные теги где хранятся ссылки на музыку
-						if(count($data->find('[data-rbt-content-id]'))){
-						  
-						  foreach($data->find('[data-rbt-content-id]') as $tag){
-						     
-						     //парсим страницу и находим нужный тег в котором спрятана ссылка
-						     $url = 'http://zaycev.net'.$tag->$nameTag;
+ 							//передаем имя исполнителя и песни для парсинга
+							//$rep = $zaycev->zaycevParsing($name);
 
-						    //разбираем json  и получаем url на песню
-						     $jsonUrl = json_decode(file_get_contents($url),true);
+							//проверяем существует ли песня по имени
+							if(!empty($artist) && !empty($nameMusic)){
+							 $rep = $muzofond->muzofondParsing($name,$nameSong, $urlPhoto);
+							 echo "|||||";
+							 var_dump($rep);
 
-						     //передаем 2 параметра (заносим в базу имя песни и ссылку)($jsonUrl, $nameSong)
-							  $this->insertMusic($jsonUrl["url"], $nameSong, $urlPhoto);
- 			   			     
-			 			     //выводим по 1 записи(без дублей)
-			 			     if($i<$n)break;
-			 			      }
-			 			 }
-					 	$data->clear();// подчищаем за собой
-						unset($data);
+							//проверяем существует ли файл по ссылке, если да то заносим в базу
+							// $this->insertMusic($rep, $nameSong, $urlPhoto);
+
+						} 
+								
+			 			   
+					 	
 						
 					   sleep(5);
 					}

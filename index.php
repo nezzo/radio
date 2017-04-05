@@ -1,11 +1,4 @@
-<?php
 
-//если обращаться на прямую то приложение закрываем (нужны данные)
- if($_GET['api_id'] != 5959378){
-    exit();
- }
-
-?> 
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
