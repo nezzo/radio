@@ -13,15 +13,18 @@ require_once "parser/muzofond.com.php";
 class Audio extends Song{
 
 	//id  групп с музыкой
-	//public $group = array("-26515827","-22866546","-28446706", "-68629392", "-27895931", "-25757367", "-33918856","-40897649");
-	public $group = array("-26515827");
-	public $param = array();
+	public $group = array("-26515827","-22866546","-28446706", "-68629392", "-27895931", "-25757367", "-33918856","-40897649");
+ 	public $param = array();
 
 
 	//узнаем сколько групп в массиве и с каждой группы в цикле тянем данные
 	public function getGroup(){
 
-		for ($i = 0; $i<count($this->group); $i++){
+		// отправляем GET запрос на удаление песен если больше 30 
+		 $fp=fopen("http://mydiplom.zzz.com.ua/muzik/upload.php?del=del","r"); 
+		 fclose($fp);
+
+		  for ($i = 0; $i<count($this->group); $i++){
 
 			$this->param = [
 						'owner_id' => $this->group[$i],
@@ -81,24 +84,21 @@ class Audio extends Song{
 							//проверяем существует ли песня по имени
 							if(!empty($artist) && !empty($nameMusic)){
 							 $rep = $muzofond->muzofondParsing($name,$nameSong, $urlPhoto);
-							 echo "|||||";
-							 var_dump($rep);
+							
 
 							//проверяем существует ли файл по ссылке, если да то заносим в базу
 							// $this->insertMusic($rep, $nameSong, $urlPhoto);
 
 						} 
 								
-			 			   
-					 	
-						
-					   sleep(5);
+			 		 
 					}
 			}
 
      
 
-	}				  
+	}
+  
 
 }
 

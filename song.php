@@ -35,10 +35,8 @@ class Song extends sqlConnect{
     //Заносим в базу ссылки на песни
     public function insertMusic($jsonUrl, $nameSong, $urlPhoto){
     	//$playlist = file("1.txt");
-      echo "\|";
-      var_dump($jsonUrl);
-
-    	if(!empty($jsonUrl) && !empty($nameSong)){
+      
+      if(!empty($jsonUrl) && !empty($nameSong)){
     	
      			$stmt = $this->connect()->prepare("INSERT INTO songs (url,name,img) VALUES (:url, :name, :img)");
 
