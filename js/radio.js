@@ -11,7 +11,7 @@ $(document).ready(function(){
          
         var string = data.split('|');
              $(this).jPlayer("setMedia", {
-                mp3: "http://mydiplom.zzz.com.ua/muzik/09.04.2017/Alan Walker - Sing Me To Sleep (Burak Yeter Remix).mp3",
+                mp3: string[0],
                 title:string[1],
                 poster:string[2]
             }).jPlayer("play");

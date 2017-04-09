@@ -14,7 +14,7 @@ class Muzofond extends Song{
  		$search = "https://muzofond.com/search/".$name;//делаем запрос в поиске
 		$nameTag = "href"; //нужный нам тег (в нем хранится ссылка)
  		$newDir = date("d.m.Y");
- 		$data = $this->dlPage($search);//file_get_html($search);//получаем html код для парсинга (с помощью поиска получаем весь список песен)
+ 		$data = str_get_html($this->dlPage($search));//file_get_html($search);//получаем html код для парсинга (с помощью поиска получаем весь список песен)
  		
  
  			//удаляем лишние теги 
@@ -32,15 +32,22 @@ class Muzofond extends Song{
 							//получаем первый результат
 		 					 if(!empty($url)){
 
+		 					 	$md5Name = md5($name);
+		 					 	$newUrl = "http://mydiplom.zzz.com.ua/muzik/".$newDir."/".$md5Name.".mp3";
 		 					 	
-		 					 	$fp=fopen("http://mydiplom.zzz.com.ua/muzik/upload.php?url=".$url."&name=".$name,"r"); 
-		 						fclose($fp);
+		 					 	$fp= @fopen("http://mydiplom.zzz.com.ua/muzik/upload.php?url=".$url."&name=".$md5Name,"r");
+ 								@fclose($fp);
 
-		 						$newUrl = "http://mydiplom.zzz.com.ua/muzik/".$newDir."/".$nameSong.".mp3";
+ 								$getBase = fopen("https://product.isyms.ru/Online_Programm/vkRadio/song.php?url=".$newUrl."&name=".$name."&photo=".$urlPhoto,"r");
+ 								
+		 						fclose($getBase);
+
+		 						
 
 
 		 						//заносим в базу данные
-		 					 	$this->insertMusic($newUrl, $nameSong, $urlPhoto);
+		 					 	//$this->insertMusic($newUrl, $nameSong, $urlPhoto);
+
 
  							 	break;
 							 }

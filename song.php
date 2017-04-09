@@ -32,6 +32,17 @@ class Song extends sqlConnect{
         }
     }
 
+    //получаем по GET параметру данные и заносим их в базу на удаленном сервере
+    public function insertGetMusic(){
+      
+      //ловим GET параметром данные и отправляем в метод insertMusic для занесение в базу данных
+      if(!empty($_GET['url']) && !empty($_GET['name']) && !empty($_GET['photo'])){
+          $this->insertMusic($_GET['url'], $_GET['name'], $_GET['photo']);
+       }
+
+
+    }
+
     //Заносим в базу ссылки на песни
     public function insertMusic($jsonUrl, $nameSong, $urlPhoto){
     	//$playlist = file("1.txt");
@@ -73,4 +84,6 @@ class Song extends sqlConnect{
 $song = new Song();
 $song->selectMusic();
 $song->musicDelete();
+$song->insertGetMusic();
+
 //$song->insertMusic(); каждый раз при вызове класса дублируются ссылки в базе на песни

@@ -1,4 +1,11 @@
+<?php
 
+//если обращаться на прямую то приложение закрываем (нужны данные)
+ if($_GET['api_id'] != 5959378){
+    exit();
+ }
+
+?> 
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -62,6 +69,19 @@
       VK.Widgets.Group("vk_groups", {mode: 3,width: "300", height: "300"}, 144066405);
       </script>
    
+    </div>
+    <div class="sponsor_group">
+      <p>Музыка с групп:</p>
+      <ol>
+	<li><a href="https://vk.com/clubmusicbesttlt">Клубная музыка | Новинки Музыки 2017</a></li>
+	<li><a href="https://vk.com/public_of_music">Клубная музыка</a></li>
+	<li><a href="https://vk.com/exp.music3">Музыка</a></li>
+	<li><a href="https://vk.com/best_0_0_music">Лучшая Музыка • Новинки 2017</a></li>
+	<li><a href="https://vk.com/exclusive_muzic">Новинки Музыки 2017</a></li>
+	<li><a href="https://vk.com/zitati_zhizni">В моих наушниках...</a></li>
+	<li><a href="https://vk.com/musictrendy">MUSIC TRENDY 2017</a></li>
+	<li><a href="https://vk.com/play.music">Музыка</a></li>
+      </ol>
     </div>
  </div>
 </div>
