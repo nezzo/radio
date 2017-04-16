@@ -24,6 +24,10 @@ class Audio extends Song{
 		 $fp=fopen("http://mydiplom.zzz.com.ua/muzik/upload.php?del=del","r"); 
 		 fclose($fp);
 
+		 //удаляем ссылки с базы если треков больше 30
+		 $fpDel=fopen("https://product.isyms.ru/Online_Programm/vkRadio/song.php?delBase=delBase","r"); 
+		 fclose($fpDel);
+
 		  for ($i = 0; $i<count($this->group); $i++){
 
 			$this->param = [

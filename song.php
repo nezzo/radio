@@ -64,6 +64,19 @@ class Song extends sqlConnect{
     //получаем POST запрос и удаляем строку в базе по имени исполнителя
     public function musicDelete(){
     
+      $delBase = $_GET['delBase'];
+
+      //по GET запросу удаляем с базы все ссылки на треки (если больше 30 песен то удаляем все записи и заносим новые)
+      if(!empty($delBase)){
+        $stmts = $this->connect()->query("TRUNCATE TABLE songs");
+    
+          if($stmts == true){
+             echo 1;
+          }else{
+            echo 0;
+          }
+      }
+
     //получаем пост запрос по ajax на удаление с базы песни
     $id = $_POST['idDel'];
       
@@ -83,7 +96,7 @@ class Song extends sqlConnect{
 
 $song = new Song();
 $song->selectMusic();
-$song->musicDelete();
+//$song->musicDelete();
 $song->insertGetMusic();
 
 //$song->insertMusic(); каждый раз при вызове класса дублируются ссылки в базе на песни
